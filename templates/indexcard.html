@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Credit Card Form | Nothing4us</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'stylecard.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'stylecard2.css' %}">
+</head>
+<body>
+<div class="wrapper" id="app">
+    <div class="card-form">
+      <div class="card-list">
+        <div class="card-item">
+          <div class="card-item__side -front">
+            <div class="card-item__top">
+              <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip">
+              <div class="card-item__type">
+                <transition name="slide-fade-up">
+                  <img src="{%static 'Mastercard-logo.svg.webp'%}" alt="" class="card-item__typeImg">
+                </transition>
+              </div>
+            </div>
+            <!-- Front side of the card -->
+            <!-- Card number -->
+            <label for="cardNumber" class="card-item__number" ref="cardNumber"></label>
+            <!-- Card holder -->
+            <label for="cardName" class="card-item__info" ref="cardName"></label>
+            <!-- Expiration date -->
+
+            <div class="card-item__date" ref="cardDate" style="color: aliceblue;" >Expiration Date<br></div>
+          </div>
+          <div class="card-item__side -back">
+            <!-- Back side of the card -->
+            <!-- CVV -->
+            <div class="card-item__cvv"></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-form__inner">
+        <!-- Card input fields -->
+        <div class="card-input">
+          <label for="cardNumber" class="card-input__label">Card Number</label>
+          <input type="text" id="cardNumber" class="card-input__input" name="cardNumber" maxlength="16">
+        </div>
+        <div class="card-input">
+          <label for="cardName"  class="card-input__label">Card Holder</label>
+          <input type="text" id="cardName" class="card-input__input" name="cardName">
+        </div>
+        <div class="card-form__row">
+          <div class="card-form__col">
+            <div class="card-form__group">
+              <label for="cardMonth" class="card-input__label">Expiration Date</label>
+              <select class="card-input__input -select" id="cardMonth" name="cardMonth">
+                <option value="1" >jan</option>
+                <option value="2" >feb</option>
+                <option value="3" >march</option>
+                <option value="4" >april</option>                <!-- Months options -->
+              </select>
+              <select class="card-input__input -select" id="cardYear" name="cardYear">
+                <option value="2024" >2024</option>
+                <option value="2023" >2023</option>
+                <option value="2022" >2022</option>
+                <option value="2021" >2021</option>    
+                <!-- Years options -->
+              </select>
+            </div>
+          </div>
+          <div class="card-form__col -cvv">
+            <div class="card-input">
+              <label for="cardCvv" class="card-input__label">CVV</label>
+              <input type="text" class="card-input__input" id="cardCvv" name="cardCvv" maxlength="3">
+            </div>
+          </div>
+        </div>
+        <!-- Submit button -->
+        <button class="card-form__button">Submit</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selecting input fields
+        const cardNumberInput = document.getElementById('cardNumber');
+        const cardNameInput = document.getElementById('cardName');
+        const cardMonthSelect = document.getElementById('cardMonth');
+        const cardYearSelect = document.getElementById('cardYear');
+        const cardCvvInput = document.getElementById('cardCvv');
+
+        // Selecting card elements
+        const cardNumberLabel = document.querySelector('.card-item__number');
+        const cardNameLabel = document.querySelector('.card-item__info');
+        const cardDateLabel = document.querySelector('.card-item__date');
+        const cardCvvLabel = document.querySelector('.card-item__cvv');
+
+        // Event listener for card number input
+        cardNumberInput.addEventListener('input', function() {
+            cardNumberLabel.innerText = cardNumberInput.value;
+        });
+
+        // Event listener for card holder input
+        cardNameInput.addEventListener('input', function() {
+            cardNameLabel.innerText = cardNameInput.value;
+        });
+
+        // Event listener for card month select
+        cardMonthSelect.addEventListener('change', function() {
+            updateCardDate();
+        });
+
+        // Event listener for card year select
+        cardYearSelect.addEventListener('change', function() {
+            updateCardDate();
+        });
+
+        // Function to update card date
+        function updateCardDate() {
+            const selectedMonth = cardMonthSelect.value;
+            const selectedYear = cardYearSelect.value.slice(-2);
+            cardDateLabel.innerText = selectedMonth + '/' + selectedYear;
+        }
+
+        // Event listener for CVV input
+        cardCvvInput.addEventListener('input', function() {
+            cardCvvLabel.innerText = cardCvvInput.value;
+        });
+    });
+  </script>
+</body>
+</html>
